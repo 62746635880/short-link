@@ -28,11 +28,13 @@ async function generateURL() {
     const url = `${baseUrl}?amntInput=${encodeURIComponent(amount)}&nameInput=${encodeURIComponent(name)}&vpaInput=${encodeURIComponent(vpa)}`;
 
     try {
-        const response = await fetch('https://api.rb.gy/v1/shorten', {
+        console.log(process.env.RBGY_API_KEY); // Temporary logging of API key for debugging
+
+        const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.rb.gy/v1/shorten', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'apikey': process.env.RBGY_API_KEY
+                'apikey': process.env.RBGY_API_KEY || 'YOUR_HARD_CODED_API_KEY'
             },
             body: JSON.stringify({ long_url: url })
         });
