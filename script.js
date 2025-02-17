@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 async function generateURL() {
     const baseUrl = "https://loanrecovery.vercel.app/index.html";
     const amount = document.getElementById('amntInput').value;
@@ -28,11 +30,11 @@ async function generateURL() {
     const url = `${baseUrl}?amntInput=${encodeURIComponent(amount)}&nameInput=${encodeURIComponent(name)}&vpaInput=${encodeURIComponent(vpa)}`;
 
     try {
-        const response = await fetch('https://api.rb.gy/v1/shorten', {
+        const response = await fetch('https://free-url-shortener.rb.gy/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'apikey': 'YOUR_RBGY_API_KEY'
+                'apikey': process.env.RBGY_API_KEY
             },
             body: JSON.stringify({ long_url: url })
         });
